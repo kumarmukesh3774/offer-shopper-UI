@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://v40.pingendo.com/assets/4.0.0/default/theme.css" type="text/css"> 
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.min.js"></script>
+</head>
+
+<body >
+
+<!-- Register as vendor-->
+<div class="py-5" [hidden]="IsHidden">
+    <div class="container">
+      <form  [formGroup]="form">
+        <h1>Registration Form</h1><br>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Enter First Name Here.." formControlName="firstName" class="form-control"> 
+              <div *ngIf="form.get('firstName').touched && form.get('firstName').invalid" class="alert-msg">
+              <div *ngIf="form.get('firstName').hasError('required')">
+                First Name is required! 
+              </div>
+              <div *ngIf="form.get('firstName').hasError('pattern')">
+                Invalid Name!
+              </div></div>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Enter Last Name Here.." formControlName="lastName" class="form-control"> 
+                   <div *ngIf="form.get('lastName').touched && form.get('lastName').invalid" class="alert-msg">
+              <div *ngIf="form.get('lastName').hasError('required')">
+                Last Name is required! 
+              </div>
+              <div *ngIf="form.get('lastName').hasError('pattern')">
+                Invalid Last Name!
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Email</label>
+              <input type="email" id="email" placeholder="Email" formControlName="email" class="form-control" readonly> 
+              <div *ngIf="form.get('email').touched && form.get('email').invalid" class="alert-msg">
+              <div *ngIf="form.get('email').hasError('required')">
+                Email is required!  
+              </div>
+              <div *ngIf="form.get('email').hasError('email') && !form.get('email').hasError('required')">
+                Invalid Email
+              </div>
+              </div>
+            </div>
+
+            <div class="col-sm-5 form-group col-md-6">
+              <label>Password</label>
+              <input type="password" placeholder="Password" formControlName="password" class="form-control" readonly> 
+                 <div *ngIf="form.get('password').touched && form.get('password').invalid" class="alert-msg">
+              <div *ngIf="form.get('password').hasError('required')">
+                Password is required!  
+              </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-4">
+              <label>Contact Number</label>
+              <input type="phone" id="phone" placeholder="Contact Number" formControlName="contact" class="form-control"> 
+                   <div *ngIf="form.get('contact').touched && form.get('contact').invalid" class="alert-msg">
+              <div *ngIf="form.get('contact').hasError('minlength') && !form.get('contact').hasError('pattern')">
+                Less than 10 digits 
+              </div>
+              <div *ngIf="form.get('contact').hasError('maxlength') && !form.get('contact').hasError('pattern')">
+               More than 10 digits 
+              </div>
+              <div *ngIf="form.get('contact').hasError('pattern')">
+                Invalid Contact
+              </div>
+            </div>
+                  </div>
+            <div class="form-group col-sm-4">
+              <label>DOB</label>
+              <input type="date" id="birthDate" formControlName="DOB" class="form-control"> </div>
+            <div class="form-group col-sm-3">
+              <label>Gender</label>
+              <div class="form-inline">
+              <input type="radio" name="gender" value='Male' formControlName="gender">Male
+      <input type="radio" name='gender' value='Female' formControlName="gender">Female
+    </div>
+              <div class="form-inline">
+                <label class="checkbox-inline form-control">
+                  <input type="checkbox" id="MaleCheckbox" formControlName="gender" value="Male"> Male </label>
+                <label class="checkbox-inline form-control">
+                  <input type="checkbox" id="FemaleCheckbox" formControlName="gender" value="Female"> Female </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <textarea placeholder="Enter Address Here.." rows="3" formControlName="address" class="form-control" id="Address"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4 form-group">
+              <label>City</label>
+              <input type="text" placeholder="Enter City Name Here.." formControlName="city" class="form-control" id="City"> <div *ngIf="form.get('city').touched && form.get('city').invalid" class="alert-msg">
+              <div *ngIf="form.get('city').hasError('pattern')">
+               City invalid!
+              </div></div></div>
+            <div class="col-sm-4 form-group">
+              <label>State</label>
+              <input type="text" placeholder="Enter State Name Here.." formControlName="state" class="form-control" id="State"><div *ngIf="form.get('state').touched && form.get('state').invalid" class="alert-msg">
+              <div *ngIf="form.get('state').hasError('pattern')">
+               State invalid!
+              </div></div> </div>
+            <div class="col-sm-4 form-group">
+              <label>Zip</label>
+              <input type="text" placeholder="Enter Zip Code Here.." formControlName="zip" class="form-control" id="ZipCode"> 
+               <div *ngIf="form.get('zip').touched && form.get('zip').invalid" class="alert-msg">
+              <div *ngIf="form.get('zip').hasError('pattern')">
+               ZipCode invalid!
+              </div></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="checkbox col-sm-2">
+              <input type="checkbox" (click)="setAddress()" id="SameCheckbox" value="SameAsAbove"> Same as above </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label>Vendor Address</label>
+            <textarea placeholder="Enter Address Here.." rows="3" formControlName="vendorAddress" class="form-control" id="VendorAddress"></textarea>
+          
+          <div *ngIf="form.get('vendorAddress').touched && form.get('vendorAddress').invalid" class="alert-msg">
+              <div *ngIf="form.get('vendorAddress').hasError('required')">
+                Address is required! 
+              </div>
+            </div></div>
+              
+          <div class="row">
+            <div class="col-sm-4 form-group">
+              <label>City</label>
+              <input type="text" placeholder="Enter City Name Here.." formControlName="vendorCity" class="form-control" id="VendorCity"> 
+                  <div *ngIf="form.get('vendorCity').touched && form.get('vendorCity').invalid" class="alert-msg">
+              <div *ngIf="form.get('vendorCity').hasError('required')">
+                City is required! 
+              </div>
+              <div *ngIf="form.get('vendorCity').hasError('pattern')">
+                Invalid City!
+              </div>
+            </div>
+             </div>
+           
+            <div class="col-sm-4 form-group">
+              <label>State</label>
+              <input type="text" placeholder="Enter State Name Here.." formControlName="vendorState" class="form-control" id="VendorState">
+                  <div *ngIf="form.get('vendorState').touched && form.get('vendorState').invalid" class="alert-msg">
+              <div *ngIf="form.get('vendorState').hasError('required')">
+                State is required! 
+              </div>
+              <div *ngIf="form.get('vendorState').hasError('pattern')">
+                Invalid State!
+              </div> </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <label>Zip</label>
+              <input type="text" placeholder="Enter Zip Code Here.." formControlName="vendorZip" class="form-control" id="VendorZipCode">
+              <div *ngIf="form.get('vendorZip').touched && form.get('vendorZip').invalid" class="alert-msg">
+              <div *ngIf="form.get('vendorZip').hasError('required')">
+                ZipCode is required! 
+              </div>
+              <div *ngIf="form.get('vendorZip').hasError('pattern')">
+                Invalid ZipCode!
+              </div>
+            </div>
+             </div>   
+ </div>
+          
+          <div class="row">
+            <div class="form-group col-sm-5">
+              <label>Vendor Contact Number</label>
+              <input type="phone" id="vendorPhone" placeholder="Contact Number"  formControlName="vendorContact" class="form-control"> 
+               <div *ngIf="form.get('vendorContact').touched && form.get('vendorContact').invalid" class="alert-msg">
+              <div *ngIf="form.get('vendorContact').hasError('required')">
+               Contact is required! 
+              </div>
+              <div *ngIf="form.get('vendorContact').hasError('minlength') && !form.get('vendorContact').hasError('pattern')">
+                Less than 10 digits 
+              </div>
+              <div *ngIf="form.get('vendorContact').hasError('maxlength') && !form.get('vendorContact').hasError('pattern')">
+               More than 10 digits 
+              </div>
+              <div *ngIf="form.get('vendorContact').hasError('pattern')">
+               Invalid Contact! 
+              </div>
+            </div>
+          </div>
+        </div>
+          <!-- /.form-group -->
+          <div class="row">
+            <div class="form-group col-sm-3 col-sm-offset-3">
+              <button type="submit"  class="btn btn-primary btn-block" (click)="registerVendor()" [disabled]="form.invalid">Register</button>
+            </div>
+              <!--  -->
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+
+  <!--Login-register-front-page-->
+  <div class="py-5 loginContainer" [hidden]="IsNotHidden">
+    <div class="container">
+      <div class="card-group">
+        <div class="card text-white cardPadding cards bg-primary">
+          <div class="card-body">
+            <h1 class="mb-4">Login</h1>
+      
+            <form [formGroup]="loginForm">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="email" formControlName="username" class="form-control" placeholder="Enter Username"> 
+                     <div *ngIf="loginForm.get('username').touched && loginForm.get('username').invalid" class="alert-msg">
+              <div *ngIf="loginForm.get('username').hasError('required')">
+                Username is required!  
+              </div>
+              <div *ngIf="loginForm.get('username').hasError('email') && !loginForm.get('username').hasError('required')">
+                Username Invalid!
+              </div>
+              </div>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" formControlName="password" class="form-control" placeholder="Enter Password"> 
+                 <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="alert-msg">
+              <div *ngIf="loginForm.get('password').hasError('minlength')" >
+                Less than 8 digits 
+              </div>
+              <div *ngIf="loginForm.get('password').hasError('maxlength')">
+               More than 20 digits 
+              </div>
+              <div *ngIf="loginForm.get('password').hasError('required')">
+               Password is required!  
+              </div>
+            </div>
+              </div>
+              <div class="form-group">
+                <a class="text-white" href>Forgot Password</a>
+              </div>
+              <button type="submit" class="btn btn-secondary" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+            </form>
+          </div>
+        </div>
+        <div class="card text-white cardPadding cards bg-primary">
+          <div class="card-body">
+            <h1 class="mb-4">Register</h1>
+                       <form [formGroup]="registerForm">
+              <div class="form-group">
+               
+
+
+                <label>Username</label>
+                <input  type="email" formControlName="username" class="form-control" placeholder="Enter email"> 
+                 <div  class="alert-msg" *ngIf="registerForm.get('username').touched && isAlredyExist"> Already present! </div>
+                <div *ngIf="registerForm.get('username').touched && registerForm.get('username').invalid" class="alert-msg">
+              <div *ngIf="registerForm.get('username').hasError('required')">
+                Username is required!  
+              </div>
+              <div *ngIf="registerForm.get('username').hasError('email') && !registerForm.get('username').hasError('required')">
+                Username Invalid!
+              </div>
+              </div>
+            </div>
+                  <div class="form-group">
+                <label>Password</label>
+                <input type="password" formControlName="password" class="form-control" placeholder="Password"> 
+                <div *ngIf="registerForm.get('password').touched && registerForm.get('password').invalid" class="alert-msg">
+              
+              <div *ngIf="registerForm.get('password').hasError('maxlength') && ! registerForm.get('password').hasError('pattern')">
+               More than 20 digits 
+              </div>
+              <div *ngIf="registerForm.get('password').hasError('required')">
+               Password is required!  
+              </div>
+              <div *ngIf="registerForm.get('password').hasError('pattern')">
+               Password Invalid (Atleast one lowercase, uppercase, specialcharacter, digit, minLength 8) !
+              </div>
+            </div>
+
+   <div *ngIf="registerForm.get('password').touched && registerForm.get('password').errors">
+        
+         <div class="alert-msg" *ngIf="registerForm.get('password').errors.notEquivalent">The new password and confirm password do not match
+         </div>
+       </div>
+              </div>
+           <div class="form-group">
+                <label>Re-enter Password</label>
+                <input type="password" formControlName="rePassword" class="form-control" placeholder="Password">
+                           <div *ngIf="registerForm.get('rePassword').touched && registerForm.get('rePassword').errors">
+         <div class="alert-msg" *ngIf="registerForm.get('rePassword').errors.required">
+           Confirm password is required
+         </div>
+         <div class="alert-msg" *ngIf="registerForm.get('rePassword').errors.notEquivalent">The new password and confirm password do not match
+         </div>
+       </div>
+
+                 </div>
+              <div class="form-group">
+                <input type="checkbox" value="isVendor" name="isVendor"  (click)="onSelect()" [disabled]="registerForm.invalid">
+                <label>Vendor</label>
+              </div>
+              <button type="submit" class="btn btn-secondary" [disabled]="registerForm.invalid" (click)="registerUser()">Next</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

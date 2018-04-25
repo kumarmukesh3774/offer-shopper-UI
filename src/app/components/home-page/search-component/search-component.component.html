@@ -1,0 +1,110 @@
+<!-- carousel -->
+<div class="container-fluid">
+  <div class="row">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div>
+          <form id="search" class="form-inline my-2 my-lg-0">
+              <select name="category-selected" class="dropdown btn btn-light dropdown-toggle mr-2" [(ngModel)]="category">
+                <option class="dropdown-item" selected>All</option>
+                <option class="dropdown-item">Electronics</option>
+                <option class="dropdown-item">Furniture</option>
+                <option class="dropdown-item">Stationery</option>
+                <option class="dropdown-item">Groceries</option>
+              </select>
+            <input id="input" list="suggestions" name="query" [(ngModel)]="query" class="form-control mr-sm-2 search-box" (keyup)="searchTerm$.next($event.target.value)" autocomplete="off" type="text"
+            placeholder="Search for your favorite deals here" aria-label="Search">
+            <!-- search button -->
+            <!-- on click of button show values for category and field-->
+             <button id="searchButton" type="button" (click)="showValue()" class="btn btn-light search-btn"><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+        <div class="carousel-image carousel-item active">
+          <img class="homepage-image d-block w-100" src="../../../../assets/images/carousel_1.jpg" alt="First slide">
+        </div>
+        <div class="carousel-image carousel-item">
+          <img class="homepage-image d-block w-100" src="../../../../assets/images/carousel_2.jpeg" alt="Second slide">
+        </div>
+        <div class="carousel-image carousel-item">
+          <img class="homepage-image d-block w-100" src="../../../../assets/images/carousel_3.jpeg" alt="Third slide">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- associating data list with the search query -->
+<datalist id="suggestions">
+  <option *ngFor="let result of results| slice:0:9">
+    {{result}}
+  </option>
+</datalist>
+
+
+<div *ngIf="products.length">
+  <div class="container mb-2 description-container mt-4">
+    <div class="row">
+      <div class="col-md-3 col-sm-4 col-6">
+      </div>
+      <div class="col-md-2 col-sm-4 col-6 d-none d-sm-block text-left">
+        <b>PRODUCT</b>
+      </div>
+      <div class="col-md-2 col-sm-4 d-none d-sm-block">
+        <b>DISCOUNTED PRICE</b>
+      </div>
+      <div class="col-md-3 d-none d-md-block text-center">
+        <b>DESCRIPTION</b>
+      </div>
+      <div class="col-md-2 d-none d-md-block text-center">
+        <b>RATINGS</b>
+      </div>
+    </div>
+  </div>
+  <div *ngFor=" let product of products">
+    <div class="container mb-1 text-center">
+      <div class="row offer border show-offer-border">
+        <div class="col-md-3 col-sm-4 col-6 offer-image bg-white">
+          <div class="card display-offer-image bg-white border-0">
+            <img class="card-img" src="../../../../assets/image-not-found.jpg" alt="Card image">
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-6 d-none d-sm-block offer-center">
+          <b [routerLink]="['/', 'product',product.userId]">{{product.offerTitle}}</b>
+        </div>
+        <div class="col-md-2 col-sm-4 mt-4 pl-2 col-6 d-block d-sm-none">
+          <br/>
+          <div class="offer-deleted-price-small">MRP:<del>₹{{product.originalPrice}}</del></div>
+        </div>
+        <div class="col-md-2 col-sm-4 d-none d-sm-block offer-center">
+          <dl>
+            <dd class="offer-discount-large">{{product.discount}}% off</dd>
+            <dd><div class="text-before-del-large">MRP:</div><del>₹{{product.originalPrice}}</del>  ₹{{priceAfterDiscount}}</dd>
+            <dd></dd>
+          </dl>
+        </div>
+        <div class="col-md-3 d-none d-md-block offer-center">
+          {{product.offerDescription}}
+        </div>
+        <div class="col-md-2 d-none d-md-block offer-center">
+          {{product.offerRating}}
+          <button class="btn btn-dark my-2 my-sm-0 container-button" type="button">Add to Carry Bag</button>
+          <button class="btn btn-dark my-2 my-sm-0 container-button" [routerLink]="['/', 'vendorInfo',product.userId]" type="button">{{product.userId}}</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
